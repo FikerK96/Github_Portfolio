@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fiker's Portfolio</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Fiker K.</h1>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open navigation">☰</button>
+      <nav class="main-nav">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#resume">Resume</a>
+        <a href="#work">Academic Work</a>
+        <a href="#internships">Internships</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <section class="hero container">
+    <div class="hero-inner">
+      <div class="avatar" aria-hidden="true">FK</div>
+      <div class="hero-copy">
+        <h2>Hello — I'm Fiker</h2>
+        <p class="muted">Computer Science student focused on data & cloud engineering. I build reliable data pipelines and practical web tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="about" class="card accent-blue">
+      <h2>About Me</h2>
+      <p>I have a strong interest in data engineering, analytics, and building scalable solutions that solve real-world problems. I enjoy working at the intersection of data, technology, and business—translating messy information into clear insights and reliable systems. I’m driven by continuous improvement, whether that’s learning new tools, exploring cloud technologies, or taking on projects that push my technical and problem-solving abilities. Outside of coursework, I actively seek opportunities to grow through hands-on projects, collaboration, and professional development. My long-term goal is to build a career in data and cloud engineering, where I can contribute to impactful, high-performance systems while continuing to learn and innovate.</p>
+    </section>
+
+    <div class="row">
+    <section id="skills" class="card accent-green">
+      <h2>Skills & Aspirations</h2>
+      <ul class="skills-list">
+        <li><strong>Languages:</strong> JavaScript, Python, SQL</li>
+        <li><strong>Web:</strong> HTML, CSS, React, Node.js</li>
+        <li><strong>Data & Tools:</strong> Git, pandas, NumPy, PostgreSQL</li>
+        <li><strong>Other:</strong> Testing, CI/CD, basic DevOps concepts</li>
+      </ul>
+      <p>I aspire to build accessible web apps and explore the scope of data related roles and leverage some of the most recent AI and ML models to make impactful projects.</p>
+    </section>
+
+    <section id="resume" class="card accent-yellow">
+      <h2>Resume</h2>
+      <p>You can download my resume here:</p>
+      <p><a class="button" href="resume.pdf" download>Download Fiker's Resume</a></p>
+      <div class="resume-inline">
+        <p class="muted">Preview (if supported):</p>
+        <div class="embed-wrap">
+          <embed src="resume.pdf" type="application/pdf" width="100%" height="480px">
+          <p class="muted">If the preview does not appear, download the resume using the button above.</p>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <section id="work" class="card accent-purple">
+      <h2>Relevant Academic Coursework</h2>
+      <p>Below are the core classes I have taken towards earning my degree at my tenure in NKU:</p>
+      <ul>
+        <li><strong>CSC 260:</strong> Object Oriented Programming I in Java</li>
+        <li><strong>CSC 286:</strong> Introduction to Web Development and Design</li>
+        <li><strong>CSC 350:</strong> Database Programming</li>
+        <li><strong>CSC 360:</strong> Object Oriented Programming II in Java</li>
+        <li><strong>CSC 362:</strong> Computer Systems</li>
+        <li><strong>CSC 364:</strong> Data Structures and Algorithms</li>
+        <li><strong>CSC 402:</strong> Advanced Programming Methods</li>
+        <li><strong>CSC 460:</strong> Operating Systems</li>
+      </ul>
+    </section>
+
+    <section id="internships" class="card accent-teal">
+      <h2>Professional Experience | Data Engineering Intern at Kroger Co.</h2>
+      <p>During my Data Engineering Internship at Kroger, I worked within the Supply Chain Data Engineering team to support the development and maintenance of large-scale data pipelines. I primarily used Azure Databricks, Spark SQL, and PySpark to clean, transform, and validate data used across supply chain operations. My role involved troubleshooting data issues, improving data quality, collaborating with engineers on pipeline enhancements, and ensuring that processing logic aligned with business requirements. Through this experience, I strengthened my skills in cloud-based data engineering, scalable data processing, and working in an agile environment within a large enterprise.</p>
+    </section>
+
+    <section id="contact" class="card accent-gray">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:fikerb1996@gmail.com">fikerb1996@gmail.com</a></p>
+      <p>GitHub: <a href="https://github.com/FikerK96" target="_blank" rel="noopener">github.com/FikerK96</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> Fiker K. — Simple portfolio</small>
+    </div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav toggle
+    (function(){
+      const nav = document.querySelector('.main-nav');
+      const btn = document.getElementById('nav-toggle');
+      if(nav && btn){
+        btn.addEventListener('click', () => nav.classList.toggle('open'));
+      }
+    })();
+
+    // theme toggle: persists choice in localStorage and respects system preference
+    (function(){
+      const body = document.body;
+      const btn = document.getElementById('theme-toggle');
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      function applyTheme(name){
+        if(name === 'dark') body.classList.add('dark'); else body.classList.remove('dark');
+        btn.textContent = name === 'dark' ? '☀️' : '🌙';
+      }
+
+      const initial = saved || (prefersDark ? 'dark' : 'light');
+      applyTheme(initial);
+
+      btn.addEventListener('click', () => {
+        const next = body.classList.contains('dark') ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('theme', next);
+      });
+    })();
+  </script>
+</body>
+</html>
